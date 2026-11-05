@@ -1,0 +1,36 @@
+# One environment for evaluation and training, pinned to the one the results were
+# produced on.
+#
+# transformers MUST stay on 4.46.x: the VideoLLaMA3 remote code forwards 4.46-era
+# kwargs (num_logits_to_keep, the older ProcessorMixin._merge_kwargs). Newer releases
+# break it.
+transformers==4.46.3
+
+torch==2.7.0
+torchvision
+accelerate==1.0.1
+safetensors
+tokenizers
+huggingface-hub
+
+# Training
+deepspeed==0.18.3
+peft==0.17.1
+PyYAML
+
+# Video decoding. .mp4 goes through the ffmpeg BINARY via ffmpeg-python; install
+# ffmpeg with your package manager -- pip cannot.
+decord
+ffmpeg-python
+opencv-python
+imageio
+
+numpy
+pandas
+Pillow
+Requests
+tqdm
+
+# Required for training, optional (faster attention) for evaluation. It must be built
+# against the installed torch, so it is installed separately:
+#   pip install ninja && pip install flash-attn==2.7.4.post1 --no-build-isolation
