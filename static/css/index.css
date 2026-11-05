@@ -18,6 +18,10 @@
   --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   --gradient-accent: linear-gradient(135deg, #ffcb80 0%, #f0d4a0 100%);
   --gradient-subtle: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  --accent-hover: #f0c060;       /* button / copy-button hover color */
+  --accent-hover-light: #fcf2df; /* 20% tint of --accent-hover */
+  --paper-yellow: #eab455;       /* "after optimization" yellow from the paper's figures */
+  --paper-yellow-light: #fcf4e6; /* light tint of --paper-yellow */
   --border-radius: 12px;
   --border-radius-lg: 16px;
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -57,7 +61,7 @@ body {
 }
 
 .button.is-dark:hover {
-  background-color: #f0c060 !important;
+  background-color: var(--accent-hover) !important;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(240, 192, 96, 0.35);
 }
@@ -115,7 +119,7 @@ body {
     font-family: 'Google Sans', sans-serif !important;
     font-weight: 700 !important;
     color: var(--text-primary) !important;
-    margin-bottom: 1rem !important;
+    margin-bottom: 0.5rem !important;
     line-height: 1.2 !important;
 }
 
@@ -152,9 +156,10 @@ body {
     width: fit-content;
     font-weight: 600;
     background: var(--background-accent);
-    padding: 0.5rem 1rem;
+    padding: 0.2rem 0.75rem;
+    font-size: 0.9rem;
     border-radius: var(--border-radius);
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     display: inline-block;
 }
 
@@ -402,7 +407,7 @@ code {
 }
 
 .copy-bibtex-btn:hover {
-  background-color: #f0c060;
+  background-color: var(--accent-hover);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(240, 192, 96, 0.35);
 }
@@ -608,7 +613,7 @@ code {
   .publication-title {
     font-size: 2.5rem !important;
     line-height: 1.2 !important;
-    margin-bottom: 1.5rem !important;
+    margin-bottom: 0.75rem !important;
   }
   
   .publication-authors {
@@ -878,3 +883,190 @@ a:focus {
 
 
 
+
+/* Paper-style (booktabs) result tables */
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background: var(--background-primary);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  padding: 0.75rem 1rem;
+}
+
+.paper-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  background: transparent;
+}
+
+.paper-table th,
+.paper-table td {
+  padding: 0.35rem 0.6rem;
+  text-align: center;
+  white-space: nowrap;
+  border: none;
+}
+
+.paper-table .col-left {
+  text-align: left;
+}
+
+.paper-table thead {
+  border-top: 2px solid var(--text-primary);
+  border-bottom: 1px solid var(--text-primary);
+}
+
+.paper-table thead th {
+  font-weight: 600;
+  vertical-align: bottom;
+}
+
+.paper-table thead th.group {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.paper-table tbody.ours {
+  border-top: 1px solid var(--text-primary);
+  border-bottom: 2px solid var(--text-primary);
+  background: var(--background-accent);
+}
+
+.paper-table tr.muted td {
+  color: var(--text-light);
+}
+
+/* Keep the row label visible while the table scrolls sideways */
+.paper-table td.col-left,
+.paper-table th.col-left {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--background-primary);
+}
+
+.paper-table tbody.ours td.col-left {
+  background: var(--background-accent);
+}
+
+/* Let a wide table scroll inside its box instead of widening the page.
+   Flex columns default to min-width:auto, which lets wide content stretch them. */
+.columns > .column {
+  min-width: 0;
+}
+
+/* Bulma's .hero is a flex column whose .container sizes to its content,
+   so a wide table would stretch the whole section past the screen. */
+.hero > .container {
+  width: 100%;
+}
+
+.table-wrap {
+  max-width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .paper-table {
+    font-size: 0.85rem;
+  }
+  .table-wrap {
+    padding: 0.5rem;
+  }
+}
+
+/* Collapsible side note (secondary analyses) */
+.side-note {
+  background: var(--background-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+}
+
+.side-note summary {
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  list-style-position: inside;
+}
+
+.side-note summary:hover {
+  color: var(--primary-color);
+}
+
+.side-note[open] summary {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.side-note-body {
+  padding: 1rem;
+  font-size: 0.95rem;
+}
+
+/* TL;DR line under the hero links */
+/* Key-message banner below the main figure */
+.tldr {
+  position: relative;
+  max-width: 44rem;
+  margin: 2.25rem auto 0;
+  padding: 1.4rem 1.5rem 1.1rem;
+  background: var(--accent-hover-light);
+  border: 1px solid var(--accent-hover);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  text-align: center;
+  color: var(--text-primary);
+}
+
+/* Label pill sitting on the banner's top edge */
+.tldr-label {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0.15rem 0.75rem;
+  background: var(--accent-hover);
+  color: #000;
+  border-radius: 999px;
+  font-family: 'Google Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 768px) {
+  .tldr {
+    font-size: 1rem;
+    padding: 1.2rem 1rem 0.9rem;
+    margin-top: 1.75rem;
+  }
+}
+
+/* Emphasized note (e.g. evaluation protocol) */
+.callout {
+  margin: 0 0 2.5rem;
+  padding: 1rem 1.25rem;
+  background: var(--paper-yellow-light);
+  border-left: 4px solid var(--paper-yellow);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+/* Bring the main figure closer to the title block */
+.hero:not(.teaser) > .hero-body {
+  padding-bottom: 0.75rem;
+}
+
+@media screen and (max-width: 768px) {
+  .teaser .hero-body {
+    padding-top: 0;
+  }
+}
