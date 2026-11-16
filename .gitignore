@@ -1,0 +1,10 @@
+# Evaluation output (scripts/eval.sh writes to results/ by default)
+results/
+
+# Local model weights and training output
+weights/
+checkpoints/
+
+__pycache__/
+*.pyc
+.pytest_cache/
